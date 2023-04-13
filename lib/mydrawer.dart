@@ -28,7 +28,7 @@ class MyDrawer extends StatelessWidget {
                   height: 80,
                 ),
                 const Text(
-                  'Al Quran',
+                  'Masjid Mode Quran',
                   style: TextStyle(fontSize: 20),
                 ),
 
@@ -59,7 +59,7 @@ class MyDrawer extends StatelessWidget {
             ),
             onTap: () {
               Share.share('''*Quran app*\n
-u can develop it from my github github.com/itsherifahmed ''');
+u can develop it  ''');
               Navigator.pop(context);
             },
           ),

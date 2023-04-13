@@ -44,10 +44,10 @@ class _IndexPageState extends State<IndexPage> {
         centerTitle: true,
         title: const Text(
           //"القرآن",
-          "Quran",
+          "Masjid Mode Quran",
           style: TextStyle(
               //fontFamily: 'quran',
-              fontSize: 35,
+              fontSize: 25,
               fontWeight: FontWeight.bold,
               shadows: [
                 Shadow(
