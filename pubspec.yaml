@@ -14,8 +14,26 @@ dependencies:
   scrollable_positioned_list: ^0.2.3
   cupertino_icons: ^1.0.2
   flutter_native_splash: ^2.2.15
-  share_plus: ^4.0.3
-  url_launcher: ^6.1.6
+  
+  
+
+
+    
+  
+  flutter_local_notifications: ^9.6.1
+  sound_mode: ^2.0.2
+  provider: ^6.0.2
+  intl: ^0.17.0
+  introduction_screen: ^3.0.2
+  url_launcher: ^6.0.18
+  flutter_svg: ^1.0.3
+  share_plus: ^4.0.10
+  android_alarm_manager_plus: ^2.0.6
+  clear_all_notifications: ^0.0.3
+
+
+    
+  
 
 dev_dependencies:
   flutter_test:

@@ -6,9 +6,46 @@ import 'home.dart';
 import 'names.dart';
 import 'tasbih.dart';
 import 'index.dart';
-void main() {
-  runApp(const MyApp());
+
+
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
+import 'package:clear_all_notifications/clear_all_notifications.dart';
+
+import 'package:ytquran/NavigationScreen.dart';
+
+import 'package:ytquran/job/Algorithm.dart';
+import 'package:ytquran/provider/ScheduleProvider.dart';
+import 'package:ytquran/provider/SettingsProvider.dart';
+import 'package:provider/provider.dart';
+
+void arcReactor() async => await algorithm();
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AndroidAlarmManager.initialize();
+  await ClearAllNotifications.clear();
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ScheduleProvider()),
+        ChangeNotifierProvider(create: (_) => SettingsProvider()),
+        // Provider<ScheduleController>(create: (context) => ScheduleController())
+      ],
+      child: MyApp(),
+    ),
+  );
+  await AndroidAlarmManager.periodic(
+    const Duration(minutes: 1),
+    Constant.ARC_REACTOR_ID,
+    arcReactor,
+    wakeup: true,
+    exact: true,
+    allowWhileIdle: false,
+    rescheduleOnReboot: true,
+  );
 }
+
+
 
 
 class MyApp extends StatefulWidget {
@@ -29,8 +66,6 @@ class _MyAppState extends State<MyApp> {
       await readJson();
       await getSettings();
     }
-
-
 
     );
     super.initState();
@@ -65,7 +100,7 @@ class _MyWidgetState extends State<MyWidget> {
         child: GridView(children: [
           InkWell(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>NavigationScreen()));
             },
             child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.blue,),
             child: Column(

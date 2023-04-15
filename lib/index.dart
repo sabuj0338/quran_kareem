@@ -20,6 +20,7 @@ class _IndexPageState extends State<IndexPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const MyDrawer(),
+      
       floatingActionButton: FloatingActionButton(
         tooltip: 'Go to bookmark',
         child: const Icon(Icons.bookmark),
@@ -44,10 +45,10 @@ class _IndexPageState extends State<IndexPage> {
         centerTitle: true,
         title: const Text(
           //"القرآن",
-          "Masjid Mode Quran",
+          "Quran",
           style: TextStyle(
               //fontFamily: 'quran',
-              fontSize: 25,
+              fontSize: 35,
               fontWeight: FontWeight.bold,
               shadows: [
                 Shadow(
@@ -149,7 +150,6 @@ class _IndexPageState extends State<IndexPage> {
 
 
 }
-
 
 
 
