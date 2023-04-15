@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ytquran/controller/DBController.dart';
+import 'package:ytquran/controller/SettingsController.dart';
 import 'package:ytquran/screen/AppIntroductionScreen.dart';
 import 'package:ytquran/screen/ErrorScreen.dart';
 import 'package:ytquran/screen/HelpScreen.dart';
@@ -19,7 +20,13 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   Future<void> initialize() async {
     await DBController.reset();
-    isAppIntroduction = await DBController.getIntroductionScreenStatus();
+    bool dndPermission = await SettingsController.getPermissionStatus();
+
+    if (dndPermission) {
+      isAppIntroduction = await DBController.getIntroductionScreenStatus();
+    } else {
+      isAppIntroduction = true;
+    }
     setState(() {});
   }
 

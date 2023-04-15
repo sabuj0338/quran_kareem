@@ -46,7 +46,8 @@ class Helper {
         end = DateTime(2021, 04, 12 + 1, endTime.hour, endTime.minute);
       }
     }
-    if (schedule.type == ScheduleType.dateTime || schedule.type == ScheduleType.quick) {
+    if (schedule.type == ScheduleType.dateTime ||
+        schedule.type == ScheduleType.quick) {
       start = DateTime(startTime.year, startTime.month, startTime.day,
           startTime.hour, startTime.minute - 1);
       end = DateTime(endTime.year, endTime.month, endTime.day, endTime.hour,
@@ -114,16 +115,19 @@ class Helper {
   }
 
   static bool isToday(Schedule schedule) {
-
     DateTime today = DateTime.now();
 
-    if(schedule.type == ScheduleType.dateTime || schedule.type == ScheduleType.quick) {
+    if (schedule.type == ScheduleType.dateTime ||
+        schedule.type == ScheduleType.quick) {
       DateTime startDay = DateTime.parse(schedule.start);
       DateTime endDay = DateTime.parse(schedule.end);
 
-      if(today.difference(startDay).inDays == 0) return true;
-      else if(today.difference(endDay).inDays == 0) return true;
-      else return false;
+      if (today.difference(startDay).inDays == 0)
+        return true;
+      else if (today.difference(endDay).inDays == 0)
+        return true;
+      else
+        return false;
     }
 
     String? todayName = Constant.dayNames[today.weekday];
@@ -150,12 +154,13 @@ class Helper {
     // DateFormat dateFormat = new DateFormat.Hm();
     DateTime dateTimeNow = DateTime.now();
     DateTime start = DateTime.parse(startTime);
-    DateTime dateTimeCreatedAt = DateTime(dateTimeNow.year,dateTimeNow.month,dateTimeNow.day,start.hour,start.minute);
+    DateTime dateTimeCreatedAt = DateTime(dateTimeNow.year, dateTimeNow.month,
+        dateTimeNow.day, start.hour, start.minute);
     final difference = dateTimeCreatedAt.difference(dateTimeNow).inSeconds;
     // print('Start time = $dateTimeCreatedAt');
     // print('Now = $dateTimeNow');
     // print('difference minutes = $difference');
-    if (difference <= 600 && difference > 0) {
+    if (difference <= 1800 && difference > 0) {
       return true;
     } else {
       return false;
@@ -163,11 +168,12 @@ class Helper {
   }
 
   static bool isScheduleRemovable(Schedule schedule) {
-    if(schedule.type == ScheduleType.daily) return false;
+    if (schedule.type == ScheduleType.daily) return false;
     // DateFormat dateFormat = new DateFormat.Hm();
     DateTime dateTimeNow = DateTime.now();
     DateTime end = DateTime.parse(schedule.end);
-    DateTime dateTimeEnding = DateTime(end.year,end.month,end.day,end.hour,end.minute);
+    DateTime dateTimeEnding =
+        DateTime(end.year, end.month, end.day, end.hour, end.minute);
     final difference = dateTimeEnding.difference(dateTimeNow).inSeconds;
     // print('End time = $dateTimeEnding');
     // print('Now = $dateTimeNow');

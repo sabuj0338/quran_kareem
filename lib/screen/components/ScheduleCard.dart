@@ -29,7 +29,8 @@ class ScheduleCard extends StatelessWidget {
             context.read<ScheduleProvider>().remove(index),
         child: ListTile(
           onTap: () {
-            if (schedule.type == ScheduleType.dateTime || schedule.type == ScheduleType.quick) {
+            if (schedule.type == ScheduleType.dateTime ||
+                schedule.type == ScheduleType.quick) {
               Navigator.push(
                 context,
                 CupertinoPageRoute(
@@ -51,7 +52,8 @@ class ScheduleCard extends StatelessWidget {
                   Row(
                     children: [
                       Icon(
-                        (schedule.type == ScheduleType.dateTime || schedule.type == ScheduleType.quick)
+                        (schedule.type == ScheduleType.dateTime ||
+                                schedule.type == ScheduleType.quick)
                             ? Icons.calendar_today
                             : Icons.schedule,
                         size: 18,

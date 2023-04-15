@@ -4,42 +4,45 @@ import 'package:ytquran/constant.dart';
 import 'package:ytquran/controller/DBController.dart';
 import 'package:ytquran/controller/SettingsController.dart';
 import 'package:ytquran/helper/MyNotification.dart';
-import 'package:sound_mode/utils/ringer_mode_statuses.dart';
+import 'package:real_volume/real_volume.dart';
 
 class MyAlarmManager {
-  Future<void> setOneShot(int id, RingerModeStatus mode) async {
+  Future<void> setOneShot(int id, RingerMode mode) async {
     switch (mode) {
-      case RingerModeStatus.normal:
+      case RingerMode.NORMAL:
         await AndroidAlarmManager.oneShot(
-          const Duration(seconds: 5),
+          const Duration(seconds: 1),
           id,
           setNormal,
           exact: true,
           wakeup: true,
           rescheduleOnReboot: true,
-          // alarmClock: true,
+          alarmClock: true,
+          allowWhileIdle: true,
         );
         return;
-      case RingerModeStatus.silent:
+      case RingerMode.SILENT:
         await AndroidAlarmManager.oneShot(
-          const Duration(seconds: 5),
+          const Duration(seconds: 1),
           id,
           setSilent,
           exact: true,
           wakeup: true,
           rescheduleOnReboot: true,
-          // alarmClock: true,
+          alarmClock: true,
+          allowWhileIdle: true,
         );
         return;
-      case RingerModeStatus.vibrate:
+      case RingerMode.VIBRATE:
         await AndroidAlarmManager.oneShot(
-          const Duration(seconds: 5),
+          const Duration(seconds: 1),
           id,
           setVibrate,
           exact: true,
           wakeup: true,
           rescheduleOnReboot: true,
-          // alarmClock: true,
+          alarmClock: true,
+          allowWhileIdle: true,
         );
         return;
       default:
@@ -47,10 +50,9 @@ class MyAlarmManager {
     }
   }
 
-  Future<void> setOneShotAt(
-      DateTime dateTime, int id, RingerModeStatus mode) async {
+  Future<void> setOneShotAt(DateTime dateTime, int id, RingerMode mode) async {
     switch (mode) {
-      case RingerModeStatus.normal:
+      case RingerMode.NORMAL:
         await AndroidAlarmManager.oneShotAt(
           dateTime,
           id,
@@ -58,10 +60,11 @@ class MyAlarmManager {
           exact: true,
           wakeup: true,
           rescheduleOnReboot: true,
-          // alarmClock: true,
+          alarmClock: true,
+          allowWhileIdle: true,
         );
         return;
-      case RingerModeStatus.silent:
+      case RingerMode.SILENT:
         await AndroidAlarmManager.oneShotAt(
           dateTime,
           id,
@@ -69,10 +72,11 @@ class MyAlarmManager {
           exact: true,
           wakeup: true,
           rescheduleOnReboot: true,
-          // alarmClock: true,
+          alarmClock: true,
+          allowWhileIdle: true,
         );
         return;
-      case RingerModeStatus.vibrate:
+      case RingerMode.VIBRATE:
         await AndroidAlarmManager.oneShotAt(
           dateTime,
           id,
@@ -80,47 +84,16 @@ class MyAlarmManager {
           exact: true,
           wakeup: true,
           rescheduleOnReboot: true,
-          // alarmClock: true,
+          alarmClock: true,
+          allowWhileIdle: true,
         );
         return;
       default:
         return;
     }
   }
-  //
-  // Future<void> setSilentAt(DateTime dateTime, int id) async {
-  //   await AndroidAlarmManager.oneShotAt(
-  //     dateTime,
-  //     // Ensure we have a unique alarm ID.
-  //     id,
-  //     setSilent,
-  //     exact: true,
-  //     wakeup: true,
-  //   );
-  // }
-  //
-  // Future<void> setVibrateAt(DateTime dateTime, int id) async {
-  //   await AndroidAlarmManager.oneShotAt(
-  //     dateTime,
-  //     // Ensure we have a unique alarm ID.
-  //     id,
-  //     setVibrate,
-  //     exact: true,
-  //     wakeup: true,
-  //   );
-  // }
-  //
-  // Future<void> setNormalAt(DateTime dateTime, int id) async {
-  //   await AndroidAlarmManager.oneShotAt(
-  //     dateTime,
-  //     // Ensure we have a unique alarm ID.
-  //     id,
-  //     setNormal,
-  //     exact: true,
-  //     wakeup: true,
-  //   );
-  // }
 
+  @pragma('vm:entry-point')
   static Future<void> setSilent(int id) async {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat.jm().format(now);
@@ -133,19 +106,26 @@ class MyAlarmManager {
     await AndroidAlarmManager.cancel(id);
   }
 
+  @pragma('vm:entry-point')
   static Future<void> setVibrate(int id) async {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat.jm().format(now);
-    // print("Vibrate OneShot fired at! = [$id]");
     await MyNotification().notificationDefaultSound(
         title: "Vibration Mode Activated!",
         description: "Activated at = [$formattedDate]");
+    // print("Vibrate OneShot fired at! = [$id]");
     await DBController.setNormalPeriod(true);
     await SettingsController.setVibrateMode();
     await AndroidAlarmManager.cancel(id);
   }
 
+  @pragma('vm:entry-point')
   static Future<void> setNormal(int id) async {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat.jm().format(now);
+    await MyNotification().notificationDefaultSound(
+        title: "Normal Mode!",
+        description: "Back to normal mode at = [$formattedDate]");
     // print("Normal OneShot fired at! = [$id]");
     // await MyNotification().notificationDefaultSound(title: "Silent Mode Activated!", description: "Activated at = [$formattedDate]");
     await DBController.setNormalPeriod(false);

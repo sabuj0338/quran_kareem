@@ -20,7 +20,6 @@ class ScheduleProvider with ChangeNotifier {
   }
 
   Future<void> initialize() async {
-
     String? schedulesFromPrefs = await DBController.getSchedules();
     if (schedulesFromPrefs != null) {
       List<Schedule> schedulesArray = Schedule.decode(schedulesFromPrefs);
@@ -28,7 +27,7 @@ class ScheduleProvider with ChangeNotifier {
 
       schedulesArray.asMap().forEach((index, element) async {
         bool check = Helper.isScheduleRemovable(element);
-        if(check) {
+        if (check) {
           schedules.removeAt(index);
         }
       });
@@ -91,7 +90,7 @@ class ScheduleProvider with ChangeNotifier {
 
   Future<void> removeMultiple() async {
     schedules.asMap().forEach((index, element) async {
-      if(element.isSelected == true) await MyAlarmManager.stopEventById(index);
+      if (element.isSelected == true) await MyAlarmManager.stopEventById(index);
     });
 
     schedules.removeWhere((element) => element.isSelected == true);
@@ -141,6 +140,8 @@ class ScheduleProvider with ChangeNotifier {
 
   Future<void> quick(int _minute) async {
     DateTime now = DateTime.now();
+    bool getDefaultQuickSilentMode =
+        await DBController.getDefaultQuickSilentMode();
     Schedule schedule = Schedule(
       name: "Quick $_minute" + "m",
       type: ScheduleType.quick,
@@ -156,9 +157,9 @@ class ScheduleProvider with ChangeNotifier {
       wednesday: true,
       thursday: true,
       friday: true,
-      silent: true,
+      silent: getDefaultQuickSilentMode ? false : true,
       airplane: false,
-      vibrate: false,
+      vibrate: getDefaultQuickSilentMode ? true : false,
       notify: false,
       isSelected: false,
       status: true,

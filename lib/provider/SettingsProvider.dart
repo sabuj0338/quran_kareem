@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:disable_battery_optimization/disable_battery_optimization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ytquran/controller/SettingsController.dart';
@@ -10,9 +11,12 @@ class SettingsProvider with ChangeNotifier {
   bool isLoading = true;
   bool isPending = false;
   Settings settings = Settings(
-      isDoNotDisturbPermissionStatus: false,
-      introductionScreenStatus: false,
-      theme: ThemeMode.system);
+    isDoNotDisturbPermissionStatus: false,
+    introductionScreenStatus: false,
+    defaultQuickSilentMode: false,
+    isBatteryOptimizationDisabled: false,
+    theme: ThemeMode.system,
+  );
 
   SettingsProvider() {
     // code..
@@ -24,11 +28,19 @@ class SettingsProvider with ChangeNotifier {
         await SettingsController.getPermissionStatus();
     settings.introductionScreenStatus =
         await DBController.getIntroductionScreenStatus();
+    settings.defaultQuickSilentMode =
+        await DBController.getDefaultQuickSilentMode();
     settings.theme = await DBController.getThemeMode();
 
     if (settings.introductionScreenStatus == null) {
       settings.introductionScreenStatus = false;
     }
+
+    bool? isBatteryOptimizationDisabled =
+        await DisableBatteryOptimization.isBatteryOptimizationDisabled;
+
+    settings.isBatteryOptimizationDisabled =
+        isBatteryOptimizationDisabled == true ? true : false;
 
     isLoading = false;
     notifyListeners();
@@ -62,6 +74,17 @@ class SettingsProvider with ChangeNotifier {
         !settings.introductionScreenStatus);
 
     settings.introductionScreenStatus = !settings.introductionScreenStatus;
+    notifyListeners();
+  }
+
+  Future<void> toggleDefaultQuickSilentMode() async {
+    if (settings.defaultQuickSilentMode == null) {
+      settings.defaultQuickSilentMode = false;
+    }
+    await DBController.toggleDefaultQuickSilentMode(
+        !settings.defaultQuickSilentMode);
+
+    settings.defaultQuickSilentMode = !settings.defaultQuickSilentMode;
     notifyListeners();
   }
 }

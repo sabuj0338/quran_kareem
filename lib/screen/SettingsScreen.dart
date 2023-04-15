@@ -1,12 +1,15 @@
 import 'dart:async';
 
+import 'package:disable_battery_optimization/disable_battery_optimization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ytquran/controller/DBController.dart';
 import 'package:ytquran/controller/SettingsController.dart';
 import 'package:ytquran/provider/ScheduleProvider.dart';
 import 'package:ytquran/provider/SettingsProvider.dart';
+import 'package:ytquran/screen/widgets/RestoreConfirmationBottomSheet.dart';
 import 'package:ytquran/screen/widgets/ThemeModeBottomSheet.dart';
+import 'package:ytquran/screen/widgets/custom_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -137,6 +140,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       borderRadius: BorderRadius.circular(0),
                     ),
                     child: GestureDetector(
+                      onTap: () => DisableBatteryOptimization
+                          .showDisableBatteryOptimizationSettings(),
+                      child: ListTile(
+                        isThreeLine: true,
+                        title: Text(
+                          "Battery Optimization Disabled",
+                          // style: TextStyle(color: Colors.grey[400]),
+                        ),
+                        subtitle: Text(
+                          "Disable battery optimization. Otherwise auto silent will not work perfectly when phone battery is low.",
+                          // style: TextStyle(color: Colors.grey[700]),
+                        ),
+                        trailing: Transform.scale(
+                          scale: 0.8,
+                          alignment: Alignment.centerRight,
+                          child: CupertinoSwitch(
+                            value: _settingsProvider
+                                .settings.isBatteryOptimizationDisabled,
+                            activeColor: Theme.of(context).primaryColor,
+                            // trackColor: Colors.black,
+                            onChanged: (bool value) {},
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 1),
+                  Card(
+                    margin: const EdgeInsets.all(0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0),
+                    ),
+                    child: GestureDetector(
                       onTap: () =>
                           SettingsController.openDoNotDisturbSettings(),
                       child: ListTile(
@@ -201,6 +237,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     child: ListTile(
                       title: Text(
+                        "Quick Silent",
+                        // style: TextStyle(color: Colors.grey[400]),
+                      ),
+                      subtitle: Text(
+                        "Set vibrate mode default for quick silent",
+                        // style: TextStyle(color: Colors.grey[700]),
+                      ),
+                      trailing: Transform.scale(
+                        scale: 0.8,
+                        alignment: Alignment.centerRight,
+                        child: CupertinoSwitch(
+                          value:
+                              _settingsProvider.settings.defaultQuickSilentMode,
+                          activeColor: Theme.of(context).primaryColor,
+                          // trackColor: Colors.black,
+                          onChanged: (bool value) =>
+                              Provider.of<SettingsProvider>(context,
+                                      listen: false)
+                                  .toggleDefaultQuickSilentMode(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 1),
+                  Card(
+                    margin: const EdgeInsets.all(0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0),
+                    ),
+                    child: ListTile(
+                      title: Text(
                         "Application Theme Mode",
                         // style: TextStyle(color: Colors.grey[400]),
                       ),
@@ -208,12 +275,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         _settingsProvider.settings.theme.name,
                         // style: TextStyle(color: Colors.grey[700]),
                       ),
-                      onTap: () async => showModalBottomSheet<void>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return ThemeModeBottomSheet();
-                        },
-                      ),
+                      onTap: () async =>
+                          customBottomSheet(context, [ThemeModeBottomSheet()]),
                       // trailing: Transform.scale(
                       //   scale: 0.8,
                       //   alignment: Alignment.centerRight,
@@ -299,10 +362,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         style: TextStyle(color: Colors.red),
                       ),
                       subtitle: Text(
-                        "Reset your app schedules and settings.",
+                        "Remove schedules and reset settings ⚠",
                         // style: TextStyle(color: Colors.grey[700]),
                       ),
-                      onTap: () => showAlert(context),
+                      onTap: () async {
+                        showModalBottomSheet(
+                          // shape: const RoundedRectangleBorder(
+                          //   borderRadius: BorderRadius.only(
+                          //     topLeft: Radius.circular(20),
+                          //     topRight: Radius.circular(20),
+                          //   ),
+                          // ),
+                          // elevation: 20,
+                          context: context,
+                          builder: (BuildContext context) {
+                            return RestoreConfirmationBottomSheet();
+                          },
+                        );
+                      },
                     ),
                   ),
                 ],

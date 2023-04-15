@@ -25,15 +25,14 @@ class AppInfoScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              Constant.APPICON_SVG,
-              width: MediaQuery.of(context).size.width / 5, fit: BoxFit.contain
-            ),
+            SvgPicture.asset(Constant.APPICON_SVG,
+                width: MediaQuery.of(context).size.width / 5,
+                fit: BoxFit.contain),
             SizedBox(
               height: 16,
             ),
             Text(
-              "Masjid Mode",
+              "Peace Time",
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 24,
@@ -41,7 +40,7 @@ class AppInfoScreen extends StatelessWidget {
               ),
             ),
             Text(
-              "Version: 1.0.0",
+              "Version: 15.0.0",
               style: TextStyle(
                   // fontWeight: FontWeight.w700,
                   color: Theme.of(context).disabledColor),

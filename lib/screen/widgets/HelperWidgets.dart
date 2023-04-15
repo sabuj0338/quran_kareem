@@ -156,27 +156,33 @@ Widget bottomNavigationBar(BuildContext context) {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(
+                  onTap: () => scheduleProvider.quick(30),
+                  child: Chip(
+                    label: Text('30m'),
+                  ),
+                ),
+                GestureDetector(
                   onTap: () => scheduleProvider.quick(60),
                   child: Chip(
-                    label: Text('60m'),
+                    label: Text('1h'),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => scheduleProvider.quick(90),
+                  child: Chip(
+                    label: Text('90m'),
                   ),
                 ),
                 GestureDetector(
                   onTap: () => scheduleProvider.quick(120),
                   child: Chip(
-                    label: Text('120m'),
+                    label: Text('2h'),
                   ),
                 ),
                 GestureDetector(
                   onTap: () => scheduleProvider.quick(180),
                   child: Chip(
-                    label: Text('150m'),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () => scheduleProvider.quick(180),
-                  child: Chip(
-                    label: Text('180m'),
+                    label: Text('3h'),
                   ),
                 ),
               ],

@@ -121,6 +121,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.8"
+  disable_battery_optimization:
+    dependency: "direct main"
+    description:
+      name: disable_battery_optimization
+      sha256: b3441975ab2a3ab0c19ed78e909a88d245ce689d43d17f9b23582b1ed41c047b
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0+1"
   dots_indicator:
     dependency: transitive
     description:
@@ -464,6 +472,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.5"
+  real_volume:
+    dependency: "direct main"
+    description:
+      name: real_volume
+      sha256: "328730604b1ba617abccfd430243bd6eb16924fed83a8e99d5e21af9bf03e2b5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.6"
   scrollable_positioned_list:
     dependency: "direct main"
     description:

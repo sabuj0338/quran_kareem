@@ -28,7 +28,9 @@ dependencies:
   url_launcher: ^6.0.18
   flutter_svg: ^1.0.3
   share_plus: ^4.0.10
-  android_alarm_manager_plus: ^2.0.6
+  android_alarm_manager_plus: ^2.0.7
+  real_volume: ^1.0.6
+  disable_battery_optimization: ^1.1.0+1
   clear_all_notifications: ^0.0.3
 
 

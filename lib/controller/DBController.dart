@@ -15,6 +15,20 @@ class DBController {
     await prefs.reload();
   }
 
+  static Future<bool> getDefaultQuickSilentMode() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
+    return prefs.getBool(Constant.SP_DEFAULT_QUICK_SILENT_MODE) == true
+        ? true
+        : false;
+  }
+
+  static Future<void> toggleDefaultQuickSilentMode(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(Constant.SP_DEFAULT_QUICK_SILENT_MODE, value);
+    await prefs.reload();
+  }
+
   static Future<ThemeMode> getThemeMode() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.reload();
