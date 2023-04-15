@@ -94,7 +94,7 @@ class _MyWidgetState extends State<MyWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Masjid Mode Grid Quran"),),
+      appBar: AppBar(title: Text("Masjid Mode"),),
       body: Container(child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: GridView(children: [
@@ -150,19 +150,19 @@ class _MyWidgetState extends State<MyWidget> {
             ],),
             ),
           ),
-          InkWell(
-              onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
-            },
-            child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.blue,),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-              Icon(Icons.explore,size: 50,color: Colors.white,),
-              Text("Qibla",style: TextStyle(color: Colors.white,fontSize: 30),)
-            ],),
-            ),
-          ),
+          // InkWell(
+          //     onTap: (){
+          //     Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+          //   },
+          //   child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.blue,),
+          //   child: Column(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //     Icon(Icons.explore,size: 50,color: Colors.white,),
+          //     Text("Qibla",style: TextStyle(color: Colors.white,fontSize: 30),)
+          //   ],),
+          //   ),
+          // ),
         ],
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing: 10,crossAxisSpacing: 10),
         ),

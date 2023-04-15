@@ -1,4 +1,4 @@
-package com.ahmedsherif.secit.ytquran
+package com.ci.masjidmode
 
 import io.flutter.embedding.android.FlutterActivity
 

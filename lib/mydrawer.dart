@@ -58,25 +58,25 @@ class MyDrawer extends StatelessWidget {
               'Share',
             ),
             onTap: () {
-              Share.share('''*Quran app*\n
-u can develop it  ''');
+              Share.share('''*Masjid Mode Quran app*\n
+u can download it from https://masjidmode.org ''');
               Navigator.pop(context);
             },
           ),
-          ListTile(
-            leading: const Icon(
-              Icons.rate_review,
-            ),
-            title: const Text(
-              'Rate',
-            ),
-            onTap: () async {
-              if (!await launchUrl(quranAppurl,
-                  mode: LaunchMode.externalApplication)) {
-                throw 'Could not launch $quranAppurl';
-              }
-            },
-          ),
+          // ListTile(
+          //   leading: const Icon(
+          //     Icons.rate_review,
+          //   ),
+          //   title: const Text(
+          //     'Rate',
+          //   ),
+          //   onTap: () async {
+          //     if (!await launchUrl(quranAppurl,
+          //         mode: LaunchMode.externalApplication)) {
+          //       throw 'Could not launch $quranAppurl';
+          //     }
+          //   },
+          // ),
 
         ],
       ),
